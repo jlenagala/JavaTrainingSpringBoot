@@ -2,32 +2,20 @@ package tlp.javatraining.employeeservices.controller;
 
 import java.util.List;
 
-import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 import tlp.javatraining.employeeservices.model.Employee;
-
-import static org.springframework.http.MediaType.*;
+import tlp.javatraining.employeeservices.service.EmployeeService;
 
 @RestController
 @RequestMapping("/services")
 public class EmployeeController {
-    @RequestMapping("/hello")
-    public String greeting() {
-        return "hello world";
-
-    }
-
-	/*	How to manual change data format
-			Add depenedency to the pom file
-			@RequestMapping(value = "/employeesJSON",produces = APPLICATION_JSON_VALUE)
-			@RequestMapping(value = "/employeesXML",produces = MediaType.APPLICATION_XML_VALUE)*/
-
-    @RequestMapping("/employee")
-    public List<Employee> getEmployees() {
-        return Employee.getAllEmployees();
-    }
-
+    @Autowired
+    EmployeeService employeeService;
+@RequestMapping(value = "/employee", method = RequestMethod.POST)
+    public Employee save(@RequestBody Employee employee){
+        return employeeService.save(employee);
+}
 
 }

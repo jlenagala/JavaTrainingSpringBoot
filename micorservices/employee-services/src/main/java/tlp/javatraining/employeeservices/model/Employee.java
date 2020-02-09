@@ -1,17 +1,28 @@
 package tlp.javatraining.employeeservices.model;
 
-import java.util.ArrayList;
-import java.util.List;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
+@Entity
+@Table(name="employee")
 public class Employee {
-
+	@Id
+    private Integer id;
 	private String name;
-	private int marks;
+    private String city;
 
-public Employee(String name, int marks) {
-	this.name = name;
-	this.marks = marks;
-}
+	public Employee() {
+	}
+
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
 	public String getName() {
 		return name;
@@ -21,33 +32,35 @@ public Employee(String name, int marks) {
 		this.name = name;
 	}
 
-	public int getMarks() {
-		return marks;
+	public String getCity() {
+		return city;
 	}
-	
-	
 
-	public void setMarks(int marks) {
-		this.marks = marks;
+	public void setCity(String city) {
+		this.city = city;
 	}
 
 	@Override
 	public String toString() {
-		return "Student [name=" + name + ", marks=" + marks + "]";
+		return "Employee{" +
+				"id=" + id +
+				", name='" + name + '\'' +
+				", city='" + city + '\'' +
+				'}';
 	}
 
-	public static List<Employee> getAllEmployees() {
+	/*public static List<Employee> getAllEmployees() {
 
-		List<Employee> employees = new ArrayList<>();
-		
-		employees.add(new Employee("Anton", 42));
-		employees.add(new Employee("Kamala", 80));
-		employees.add(new Employee("Nimala", 46));
-		employees.add(new Employee("Anil", 98));
-		employees.add(new Employee("Geetha", 61));
-		
-		return employees;
+        List<Employee> employees = new ArrayList<>();
 
-	}
+        employees.add(new Employee("Anton", 42));
+        employees.add(new Employee("Kamala", 80));
+        employees.add(new Employee("Nimala", 46));
+        employees.add(new Employee("Anil", 98));
+        employees.add(new Employee("Geetha", 61));
+
+        return employees;
+
+    }*/
 
 }
