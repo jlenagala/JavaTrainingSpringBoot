@@ -1,53 +1,88 @@
 package tlp.javatraining.employeeservices.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
-@Entity
-@Table(name="employee")
+import javax.persistence.*;
+import java.util.List;
+
+@Entity(name = "employee")
 public class Employee {
-	@Id
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "employee_project", joinColumns = {
+            @JoinColumn(name = "eid", referencedColumnName = "id") }, inverseJoinColumns = {
+            @JoinColumn(name = "pid", referencedColumnName = "id") })
+
+    List<Project>projects;
+    //fetch = FetchType.EAGER-----> get all the field of data and fetch relevent data only
+	@OneToMany(mappedBy = "employee",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @LazyCollection(LazyCollectionOption.FALSE)
+	List<Telephone>telephones;
+    @OneToOne(cascade = CascadeType.ALL)
+    Address addresses;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-	private String name;
+    private String name;
     private String city;
 
-	public Employee() {
-	}
+    public List<Project> getProjects() {
+        return projects;
+    }
 
+    public void setProjects(List<Project> projects) {
+        this.projects = projects;
+    }
 
-	public Integer getId() {
-		return id;
-	}
+    public List<Telephone> getTelephones() {
+        return telephones;
+    }
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
+    public void setTelephones(List<Telephone> telephones) {
+        this.telephones = telephones;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public Address getAddresses() {
+        return addresses;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public void setAddresses(Address addresses) {
+        this.addresses = addresses;
+    }
 
-	public String getCity() {
-		return city;
-	}
+    public Integer getId() {
+        return id;
+    }
 
-	public void setCity(String city) {
-		this.city = city;
-	}
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-	@Override
-	public String toString() {
-		return "Employee{" +
-				"id=" + id +
-				", name='" + name + '\'' +
-				", city='" + city + '\'' +
-				'}';
-	}
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    @Override
+    public String toString() {
+        return "Employee{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", city='" + city + '\'' +
+                '}';
+    }
 
 	/*public static List<Employee> getAllEmployees() {
 
