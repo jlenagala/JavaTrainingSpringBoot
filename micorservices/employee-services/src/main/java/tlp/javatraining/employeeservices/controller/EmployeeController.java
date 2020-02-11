@@ -19,9 +19,11 @@ public class EmployeeController {
     @RequestMapping(value = "/employee", method = RequestMethod.POST)
     public Employee save(@RequestBody Employee employee) {
         //to set the data to each employee--->to fullfil the null value problem
-        if (employee.getTelephones() != null)
-            for (Telephone telephone : employee.getTelephones())
+        if (employee.getTelephones() != null){
+            for (Telephone telephone : employee.getTelephones()) {
                 telephone.setEmployee(employee);
+            }
+        }
         if (employee.getProjects() != null) {
             for (Project project : employee.getProjects()) {
                 if (project.getEmployees() != null)
