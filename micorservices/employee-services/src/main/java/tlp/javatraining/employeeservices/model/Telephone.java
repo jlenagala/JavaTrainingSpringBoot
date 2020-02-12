@@ -8,8 +8,7 @@ import javax.persistence.*;
 public class Telephone {
     @ManyToOne
     @JoinColumn()
-            @JsonIgnore
-            //not consider employe as a property inside a telephone class
+            @JsonIgnore//not consider employe as a property inside a telephone class
     Employee employee;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

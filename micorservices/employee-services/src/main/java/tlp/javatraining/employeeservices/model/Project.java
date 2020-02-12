@@ -1,5 +1,7 @@
 package tlp.javatraining.employeeservices.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.List;
 @Entity(name = "project")
@@ -10,6 +12,7 @@ public class Project {
     private String name;
     //employee owns a that relationship
     @ManyToMany(mappedBy ="projects")
+    @JsonIgnore
     List<Employee>employees;
 
     public Project() {

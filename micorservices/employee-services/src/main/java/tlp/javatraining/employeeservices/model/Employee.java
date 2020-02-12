@@ -1,5 +1,7 @@
 package tlp.javatraining.employeeservices.model;
-
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+import tlp.javatraining.employeeservices.commonmodel.Allocation;
 
 import javax.persistence.*;
 import java.util.List;
@@ -16,15 +18,33 @@ public class Employee {
     private String name;
     private String city;
     @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-
     List<Telephone> telephones;
+
     @OneToOne(cascade = CascadeType.ALL)
     Address addresses;
+
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "employee_project", joinColumns = {
             @JoinColumn(name = "eid", referencedColumnName = "id")}, inverseJoinColumns = {
             @JoinColumn(name = "pid", referencedColumnName = "id")})
+    @Fetch(value = FetchMode.SUBSELECT)
     public List<Project> projects;
+    Allocation[] allocations;
+
+    public Employee() {
+    }
+
+    public Allocation[] getAllocations() {
+        return allocations;
+    }
+
+    public void setAllocations(Allocation[] allocations) {
+        this.allocations = allocations;
+    }
+
+    public Employee(Allocation[] allocations) {
+        this.allocations = allocations;
+    }
 
     public List<Project> getProjects() {
         return projects;
@@ -73,28 +93,4 @@ public class Employee {
     public void setCity(String city) {
         this.city = city;
     }
-
-    @Override
-    public String toString() {
-        return "Employee{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", city='" + city + '\'' +
-                '}';
-    }
-
-	/*public static List<Employee> getAllEmployees() {
-
-        List<Employee> employees = new ArrayList<>();
-
-        employees.add(new Employee("Anton", 42));
-        employees.add(new Employee("Kamala", 80));
-        employees.add(new Employee("Nimala", 46));
-        employees.add(new Employee("Anil", 98));
-        employees.add(new Employee("Geetha", 61));
-
-        return employees;
-
-    }*/
-
 }
