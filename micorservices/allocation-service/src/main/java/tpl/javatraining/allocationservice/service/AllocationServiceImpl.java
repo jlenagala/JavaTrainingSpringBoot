@@ -38,6 +38,7 @@ public class AllocationServiceImpl implements AllocationService {
     public List<Allocation> findByEmployee(Integer id) {
         Allocation allocation=new Allocation();
         allocation.setEmpId(id);
+        System.out.println("port 0");
         Example <Allocation> example=Example.of(allocation);
         List<Allocation> allocations=allocationRepository.findAll(example);
         return allocations;

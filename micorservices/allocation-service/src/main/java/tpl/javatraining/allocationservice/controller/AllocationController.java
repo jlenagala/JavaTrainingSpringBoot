@@ -29,6 +29,7 @@ public class AllocationController {
     public Allocation save(@RequestBody Allocation allocation) {
         return allocationService.save(allocation);
     }
+
     @RequestMapping(value = "/allofindbyemployee/{id}", method = RequestMethod.GET)
     public Allocation[] getAllocationByEmpId(@PathVariable Integer id) {
         List<Allocation> all =allocationService.findByEmployee(id);
