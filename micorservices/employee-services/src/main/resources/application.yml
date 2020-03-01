@@ -18,4 +18,11 @@ spring:
 
     dialect: org.hibernate.dialect.MySQL8Dialect
 server:
-  port: 8081
+  port: 0
+security:
+  oauth2:
+    resource:
+      token-info-uri: http://localhost:8282/oauth/check_token
+client:
+  client-id: web
+  client-password : webpass
